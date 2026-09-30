@@ -1,0 +1,135 @@
+{
+  "checked_at": "2026-09-30",
+  "network": "GenLayer hosted Studio",
+  "repository": "https://github.com/Zhekinmaksim/genlayer-relation-ranker",
+  "source_commit": "c8e1bc848639162a53d514e6df463c9dc0ec9d15",
+  "contract": "0xbF86982b3c35AECa4e32a19bDbAead7a89BE255A",
+  "deployment_tx": "0xff0acfa0b2bf219089aa444c4c0576f1539e6fafe70388d77499ffc640c79c39",
+  "leader_only": false,
+  "offline": {
+    "command": "python3 sim/check.py",
+    "test_groups_passed": 9,
+    "test_groups_total": 9,
+    "note": "Mocked LLM and consensus. Hash stub uses SHA3-256, not Keccak256. Live execution below uses the pinned GenVM runtime."
+  },
+  "cases": [
+    {
+      "id": "release-20260930",
+      "criterion": "Rank software incidents by urgency of engineering response based only on described ongoing impact. Active loss of customer data is most urgent, an unavailable staging environment is less urgent, and a cosmetic alignment issue with no functional impact is least urgent.",
+      "items": [
+        "A: The staging deployment environment is unavailable; production customers are unaffected.",
+        "B: A production defect is actively deleting customer records and must be stopped immediately.",
+        "C: A settings-page icon is slightly misaligned; all functions work normally."
+      ],
+      "transactions": {
+        "open": "0x54b3b57ff0222472eb5c88a7b82e52ef6cfe5ec198a862dfc1be0abbdf714cfd",
+        "submit_items": "0x7059f005edcca881fa02e13d4b36a62c702055771047b09e1ab778bf6145ee5c",
+        "rank": "0x1ca47d7ec7cc7389b93c33c20eb5cd96f65fa795ad7a307ceacb6b42f6927de5"
+      },
+      "status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "consensus": "MAJORITY_AGREE",
+      "votes": [
+        "AGREE",
+        "AGREE",
+        "AGREE",
+        "DISAGREE",
+        "DISAGREE"
+      ],
+      "result": {
+        "criterion_hash": "0x3a4518727f2777cffd9734771323703310684d255428bb9418eda97ff67fedc1",
+        "items_hash": "0xc1e037a0ed1a26a84269aa4bde8001c17651caabaa853f66acebf30af9d22de1",
+        "order_indices": [
+          1,
+          0,
+          2
+        ],
+        "outcome": 1,
+        "reason": "ranked",
+        "result_hash": "0xcd826a19df9efbcd3060ad37ccb057d6d27bab60cb71f17467b31fc8f3091189",
+        "unseparated": []
+      }
+    },
+    {
+      "id": "tie-20260930",
+      "criterion": "Rank by current production impact only. Items with equivalent production impact must be tied regardless of their names. No production impact ranks below active production data loss.",
+      "items": [
+        "A: Production database records are being deleted by a running faulty job.",
+        "B: An active production job is deleting stored customer records.",
+        "C: A documentation typo has no effect on production."
+      ],
+      "transactions": {
+        "open": "0xb8df0836f75430616aadf04844688735618ecd6ae31a296ca3e358672814c068",
+        "submit_items": "0xc817768b95e391391435d064c95af10fd7c7e7b3ee237628af39456c9b98a27f",
+        "rank": "0xa199adf0b1fea281dce78c72e3a5d00a114d82edd057fcd79b4caf4f2e505246"
+      },
+      "status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "consensus": "MAJORITY_AGREE",
+      "votes": [
+        "AGREE",
+        "AGREE",
+        "IDLE",
+        "IDLE",
+        "AGREE"
+      ],
+      "result": {
+        "criterion_hash": "0xa22edfbf32671919431f78ffe485d38e80d62f5286a9190a498d04f7f26f0ccf",
+        "items_hash": "0x1ea35b69830362e8ea45712c7bffb10f2c9da09f12a8359035078c93e8049953",
+        "order_indices": [
+          0,
+          1,
+          2
+        ],
+        "outcome": 1,
+        "reason": "ranked",
+        "result_hash": "0x2f25509657b99638e2215af0b7e7259ac5596674b61c1f8b45bcc8aa01aaba72",
+        "unseparated": [
+          "0-1"
+        ]
+      }
+    },
+    {
+      "id": "cycle-20260930",
+      "criterion": "Compare by rock-paper-scissors dominance: Rock beats Scissors, Scissors beats Paper, Paper beats Rock. Apply the rule to each pair independently; do not invent a global order.",
+      "items": [
+        "Rock",
+        "Paper",
+        "Scissors"
+      ],
+      "transactions": {
+        "open": "0x0df92b9490e6bf369117be56354c3f156db899e0281a400a312525e31c9b8335",
+        "submit_items": "0xed90f06f741d223e1823ab813869b2b0224df0fa1bf531ee026fd96416328564",
+        "rank": "0xc9360078ba1db97c674ac63e49b5d3db1894876e8f74da1fcca1075441eabaa0"
+      },
+      "status": "FINALIZED",
+      "leader_execution": "SUCCESS",
+      "consensus": "MAJORITY_AGREE",
+      "votes": [
+        "IDLE",
+        "AGREE",
+        "AGREE",
+        "DISAGREE",
+        "AGREE"
+      ],
+      "result": {
+        "criterion_hash": "0x5d5ef2b14283204f3b7ab85668579293b17b449205b650ae038323bb62f9bf7a",
+        "items_hash": "0xc76b999afb1fb4428b9681c4eb975b7a0a9bd9fc1db6f6556540cff003728005",
+        "order_indices": [],
+        "outcome": 2,
+        "reason": "intransitive",
+        "result_hash": "0xc523a4e8f6f113b0177343529c0a084ab3dd4bd92d4de8c89fabfb0043733891",
+        "unseparated": []
+      }
+    }
+  ],
+  "reproduce": {
+    "read_command": "genlayer call 0xbF86982b3c35AECa4e32a19bDbAead7a89BE255A get_result --args <case-id>",
+    "note": "Use the studionet network. Existing case IDs are settled; write tests must use new IDs. get_order returns item text; get_result includes tie pairs and reason."
+  },
+  "limits": [
+    "These examples do not guarantee convergence for arbitrary criteria or models.",
+    "Comparative validation is LLM-based; majority agreement is not unanimity or proof of factual correctness.",
+    "Portal review and acceptance remain pending."
+  ]
+}
